@@ -116,3 +116,17 @@ function startGame(){
 
     createdLetterButtons();
 }
+
+// Création des boutons de lettres
+function createdLetterButtons(){
+    const letterscontainer = document.getElementById("letters-container");
+    letterscontainer.innerHTML = '';
+    const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+
+    alphabet.split('').forEach(letter => {
+        const button = document.createElement('button');
+        button.textContent = letter ;
+        button.onclick = () => guessedLetters(letter, button);
+        letterscontainer.appendChild(button);
+    });
+}
