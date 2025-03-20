@@ -83,3 +83,9 @@ const words = [
     { word: "carte", hint: "Objet utilisé pour naviguer ou comme moyen de paiement." },
     { word: "internet", hint: "Réseau mondial permettant la communication et l'accès à l'information." }
 ];
+
+//Variables globales
+let selectedword = '';
+let displayedWord = '' ;
+let guessedLetters = [] ;
+let remainingGuesses = 6 ;
