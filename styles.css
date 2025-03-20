@@ -14,7 +14,7 @@ body {
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    width: 350px;
+    width: 400px;
     transition: transform 0.3s ease;
 }
 
@@ -28,6 +28,13 @@ h1 {
     margin-bottom: 20px;
     text-transform: uppercase;
     letter-spacing: 2px;
+}
+
+.hangman-display {
+    font-family: monospace;
+    font-size: 16px;
+    color: #2c3e50;
+    margin: 10px 0;
 }
 
 .word-display {
@@ -48,7 +55,17 @@ h1 {
 #guesses-left {
     font-size: 18px;
     color: #34495e;
+    margin-bottom: 10px;
+}
+
+#used-letters {
+    font-size: 16px;
+    color: #34495e;
     margin-bottom: 20px;
+}
+
+#used-letters-list {
+    font-weight: bold;
 }
 
 .letters-container {
@@ -70,17 +87,19 @@ h1 {
     transition: all 0.3s ease;
 }
 
-.letters-container button:hover {
+.letters-container button:hover:not(:disabled) {
     background-color: #2980b9;
     transform: scale(1.1);
 }
 
 .letters-container button.correct {
-    background-color: #27ae60; /* Vert pour lettre correcte */
+    background-color: #27ae60;
+    animation: bounce 0.3s;
 }
 
 .letters-container button.incorrect {
-    background-color: #e74c3c; /* Rouge pour lettre incorrecte */
+    background-color: #e74c3c;
+    animation: shake 0.3s;
 }
 
 .letters-container button:disabled {
@@ -122,6 +141,20 @@ h1 {
 .restart-button:hover {
     background-color: #d35400;
     transform: scale(1.05);
+}
+
+@keyframes bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
 }
 
 @keyframes fadeIn {

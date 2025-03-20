@@ -1,3 +1,4 @@
+// Liste de mots (fournie par toi)
 const words = [
     { word: "bonjour", hint: "Un mot pour saluer quelqu’un." },
     { word: "arbre", hint: "Il pousse dans la forêt." },
@@ -35,7 +36,7 @@ const words = [
     { word: "fromage", hint: "Produit laitier qui peut être consommé seul ou dans des plats." },
     { word: "pain", hint: "Aliment de base fait à partir de farine et d'eau." },
     { word: "mouton", hint: "Animal domestique souvent élevé pour sa laine." },
-    { word: "vache", hint: "Animal chor de ferme qui donne du lait." },
+    { word: "vache", hint: "Animal de ferme qui donne du lait." },
     { word: "poule", hint: "Animal qui pond des œufs." },
     { word: "canard", hint: "Oiseau qui vit souvent près des étangs." },
     { word: "merveille", hint: "Ce qui provoque l'émerveillement." },
@@ -84,52 +85,66 @@ const words = [
     { word: "internet", hint: "Réseau mondial permettant la communication et l'accès à l'information." }
 ];
 
-//Variables globales
-let selectedword = '';
-let displayedWord = '' ;
-let guessedLetters = [] ;
-let remainingGuesses = 6 ;
+// Variables globales
+let selectedWord = '';
+let displayedWord = '';
+let guessedLetters = [];
+let remainingGuesses = 6;
 
-//Fonction pour choisir un mot aléatoire
+// Fonction pour choisir un mot aléatoire
 function getRandomWord() {
-    const randomIndex = Math.floor(Math.random() * words.length) ;
+    const randomIndex = Math.floor(Math.random() * words.length);
     return words[randomIndex];
 }
 
-//Initialisation du jeu
-function startGame(){
-    remainingGuesses = 6 ;
+// Initialisation du jeu
+function startGame() {
+    remainingGuesses = 6;
     guessedLetters = [];
     document.getElementById("message").textContent = "";
-    document.getElementById("message").classList.remove("win","lose");
-    document.getElementById("restart-button").style.display = "none" ;
+    document.getElementById("message").classList.remove("win", "lose");
+    document.getElementById("restart-button").style.display = "none";
     document.getElementById("remaining-guesses").textContent = remainingGuesses;
 
-    //Sélection aléatoire d'un mot
+    // Sélection aléatoire d'un mot
     const randomWordObj = getRandomWord();
-    selectedword = randomWordObj.word.toLowerCase();
+    selectedWord = randomWordObj.word.toLowerCase();
     const hint = randomWordObj.hint;
 
-    displayedWord = selectedword.split('').map(()=> '_').join(' ');
+    displayedWord = selectedWord.split('').map(() => '_').join(' ');
     document.getElementById("word-display").textContent = displayedWord;
     document.getElementById("hint-display").textContent = `Indice : ${hint}`;
 
-    createdLetterButtons();
+    createLetterButtons(); // Correction du nom de la fonction
 }
 
 // Création des boutons de lettres
-function createdLetterButtons(){
-    const letterscontainer = document.getElementById("letters-container");
-    letterscontainer.innerHTML = '';
+function createLetterButtons() { // Nom corrigé
+    const lettersContainer = document.getElementById("letters-container");
+    lettersContainer.innerHTML = '';
     const alphabet = 'abcdefghijklmnopqrstuvwxyz';
 
     alphabet.split('').forEach(letter => {
         const button = document.createElement('button');
-        button.textContent = letter ;
-        button.onclick = () => guessedLetters(letter, button);
-        letterscontainer.appendChild(button);
+        button.textContent = letter;
+        button.onclick = () => guessLetter(letter, button); // Appel correct de guessLetter
+        lettersContainer.appendChild(button);
     });
+
+    // Ajout de la gestion du clavier pour UX
+    document.onkeydown = (e) => {
+        const letter = e.key.toLowerCase();
+        if (/^[a-z]$/.test(letter) && !guessedLetters.includes(letter)) {
+            const buttons = lettersContainer.querySelectorAll('button');
+            buttons.forEach(btn => {
+                if (btn.textContent === letter) {
+                    guessLetter(letter, btn);
+                }
+            });
+        }
+    };
 }
+
 // Gestion des lettres devinées
 function guessLetter(letter, button) {
     if (guessedLetters.includes(letter)) return;
@@ -149,6 +164,7 @@ function guessLetter(letter, button) {
 
     checkGameEnd();
 }
+
 // Mise à jour du mot affiché
 function updateDisplayedWord() {
     displayedWord = selectedWord.split('').map(char => {
@@ -157,11 +173,10 @@ function updateDisplayedWord() {
     document.getElementById("word-display").textContent = displayedWord;
 }
 
-//Mise à jour du message
+// Mise à jour du message
 function updateMessage(message) {
     document.getElementById("message").textContent = message;
 }
-
 
 // Vérification de la fin du jeu
 function checkGameEnd() {
@@ -171,7 +186,7 @@ function checkGameEnd() {
         showRestartButton();
     } else if (!displayedWord.includes('_')) {
         updateMessage("Félicitations, vous avez gagné !");
-        document.getElementById("message").classList.addpredicament("win");
+        document.getElementById("message").classList.add("win"); // Correction de la faute
         showRestartButton();
     }
 }
@@ -181,6 +196,7 @@ function showRestartButton() {
     document.getElementById("restart-button").style.display = "block";
     const buttons = document.querySelectorAll(".letters-container button");
     buttons.forEach(button => button.disabled = true);
+    document.onkeydown = null; // Désactiver le clavier à la fin pour éviter des bugs
 }
 
 // Événement pour redémarrer
