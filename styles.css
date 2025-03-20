@@ -1,90 +1,185 @@
+/* Réinitialisation de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Style global */
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #74ebd5, #acb6e5);
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    margin: 0;
+    padding: 20px;
+    transition: background 0.5s ease;
 }
 
+/* Mode sombre avec nouvelles couleurs */
+body.dark-mode {
+    background: linear-gradient(135deg, #1a1a2e, #16213e); /* Bleu nuit profond */
+}
+
+body.dark-mode .game-container {
+    background: #0f3460; /* Bleu sombre élégant */
+    color: #e94560; /* Rose-rouge pour contraste */
+}
+
+body.dark-mode .word-display,
+body.dark-mode .guesses-left,
+body.dark-mode .message,
+body.dark-mode .score {
+    color: #e94560; /* Rose-rouge */
+}
+
+body.dark-mode .hint-display {
+    color: #54e346; /* Vert fluo pour l’indice */
+    background: rgba(84, 227, 70, 0.1);
+}
+
+body.dark-mode #theme-toggle {
+    background-color: #e94560; /* Rose-rouge */
+    color: #0f3460;
+}
+
+body.dark-mode .restart-button {
+    background-color: #54e346; /* Vert fluo */
+    box-shadow: 0 4px 10px rgba(84, 227, 70, 0.3);
+}
+
+body.dark-mode .restart-button:hover {
+    background-color: #4cd137;
+}
+
+/* Conteneur principal pour le responsive */
+.wrapper {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Bouton pour le mode sombre */
+.theme-toggle {
+    background-color: #2a5298;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(42, 82, 152, 0.3);
+}
+
+.theme-toggle:hover {
+    background-color: #1e3c72;
+    transform: scale(1.05);
+}
+
+/* Conteneur du jeu avec animation d’introduction */
 .game-container {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     text-align: center;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    width: 400px;
+    width: 100%;
     transition: transform 0.3s ease;
+    animation: slideIn 0.5s ease-out;
 }
 
-.game-container:hover {
-    transform: scale(1.02);
-}
-
+/* Titre */
 h1 {
-    font-size: 28px;
-    color: #333;
-    margin-bottom: 20px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2a5298;
+    margin-bottom: 15px;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
 }
 
-.hangman-display {
-    font-family: monospace;
-    font-size: 16px;
-    color: #2c3e50;
-    margin: 10px 0;
+/* Score avec animation en cas d’échec */
+.score {
+    font-size: 1.2rem;
+    color: #27ae60;
+    margin-bottom: 15px;
 }
 
+.score span {
+    font-weight: 700;
+}
+
+.score.lose {
+    animation: pulse 1s infinite; /* Animation en cas d’échec */
+}
+
+/* Affichage du mot */
 .word-display {
-    font-size: 40px;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #1e3c72;
+    letter-spacing: 15px;
     margin: 20px 0;
-    letter-spacing: 12px;
-    color: #2c3e50;
-    font-weight: bold;
+    text-transform: uppercase;
 }
 
+/* Indice stylé */
 .hint-display {
-    font-size: 16px;
-    margin: 15px 0;
-    color: #7f8c8d;
+    font-size: 1.1rem;
+    color: #e67e22;
     font-style: italic;
+    margin: 15px 0;
+    padding: 10px;
+    background: rgba(230, 126, 34, 0.1);
+    border-radius: 10px;
+    transition: all 0.3s ease;
 }
 
-#guesses-left {
-    font-size: 18px;
-    color: #34495e;
-    margin-bottom: 10px;
-}
-
-#used-letters {
-    font-size: 16px;
-    color: #34495e;
+/* Chances restantes */
+.guesses-left {
+    font-size: 1.2rem;
+    color: #ffffff;
+    background: #27ae60;
+    padding: 10px 15px;
+    border-radius: 25px;
     margin-bottom: 20px;
+    display: inline-block;
+    box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
 }
 
-#used-letters-list {
-    font-weight: bold;
+.guesses-left span {
+    font-weight: 700;
+    color: #fff;
 }
 
+/* Conteneur des lettres */
 .letters-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 8px;
-    margin-bottom: 20px;
+    gap: 10px;
+    margin-bottom: 25px;
 }
 
+/* Boutons de lettres */
 .letters-container button {
     background-color: #3498db;
     color: white;
     border: none;
     padding: 12px 16px;
-    font-size: 16px;
+    font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 10px;
     transition: all 0.3s ease;
+    width: 50px;
+    height: 50px;
 }
 
 .letters-container button:hover:not(:disabled) {
@@ -103,44 +198,58 @@ h1 {
 }
 
 .letters-container button:disabled {
-    opacity: 0.5;
+    opacity: 0.4;
     cursor: not-allowed;
 }
 
+/* Message */
 .message {
-    font-size: 20px;
-    font-weight: bold;
-    color: #2c3e50;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #2a5298;
     margin: 20px 0;
-    transition: opacity 0.5s ease;
+    padding: 10px;
+    border-radius: 10px;
+    transition: all 0.5s ease;
 }
 
 .message.win {
     color: #27ae60;
+    background: rgba(39, 174, 96, 0.1);
     animation: fadeIn 1s;
 }
 
 .message.lose {
     color: #e74c3c;
+    background: rgba(231, 76, 60, 0.1);
     animation: fadeIn 1s;
 }
 
+/* Bouton Recommencer */
 .restart-button {
     background-color: #e67e22;
     color: white;
     border: none;
-    padding: 12px 25px;
-    font-size: 16px;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
     cursor: pointer;
-    border-radius: 8px;
-    margin-top: 20px;
+    border-radius: 25px;
+    margin-top: 10px;
     display: none;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(230, 126, 34, 0.3);
 }
 
 .restart-button:hover {
     background-color: #d35400;
     transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 @keyframes bounce {
@@ -160,4 +269,69 @@ h1 {
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .game-container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .word-display {
+        font-size: 1.8rem;
+        letter-spacing: 10px;
+    }
+
+    .hint-display {
+        font-size: 1rem;
+        padding: 8px;
+    }
+
+    .guesses-left, .score {
+        font-size: 1rem;
+        padding: 8px 12px;
+    }
+
+    .letters-container button {
+        width: 40px;
+        height: 40px;
+        font-size: 0.9rem;
+        padding: 0;
+    }
+
+    .message {
+        font-size: 1.1rem;
+    }
+
+    .restart-button, .theme-toggle {
+        font-size: 1rem;
+        padding: 10px 25px;
+    }
+}
+
+@media (max-width: 360px) {
+    .word-display {
+        font-size: 1.5rem;
+        letter-spacing: 8px;
+    }
+
+    .letters-container {
+        gap: 8px;
+    }
+
+    .letters-container button {
+        width: 35px;
+        height: 35px;
+        font-size: 0.8rem;
+    }
 }
