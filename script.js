@@ -89,3 +89,9 @@ let selectedword = '';
 let displayedWord = '' ;
 let guessedLetters = [] ;
 let remainingGuesses = 6 ;
+
+//Fonction pour choisir un mot aléatoire
+function getRandomWord() {
+    const randomIndex = Math.floor(Math.random() * words.length) ;
+    return words[randomIndex];
+}
