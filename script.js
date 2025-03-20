@@ -130,3 +130,22 @@ function createdLetterButtons(){
         letterscontainer.appendChild(button);
     });
 }
+// Gestion des lettres devinées
+function guessLetter(letter, button) {
+    if (guessedLetters.includes(letter)) return;
+
+    guessedLetters.push(letter);
+    button.disabled = true;
+
+    if (selectedWord.includes(letter)) {
+        button.classList.add("correct");
+        updateDisplayedWord();
+    } else {
+        button.classList.add("incorrect");
+        remainingGuesses--;
+        document.getElementById("remaining-guesses").textContent = remainingGuesses;
+        updateMessage(`Lettre incorrecte ! Chances restantes : ${remainingGuesses}`);
+    }
+
+    checkGameEnd();
+}
