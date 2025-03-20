@@ -105,5 +105,14 @@ function startGame(){
     document.getElementById("restart-button").style.display = "none" ;
     document.getElementById("remaining-guesses").textContent = remainingGuesses;
 
-    
+    //Sélection aléatoire d'un mot
+    const randomWordObj = getRandomWord();
+    selectedword = randomWordObj.word.toLowerCase();
+    const hint = randomWordObj.hint;
+
+    displayedWord = selectedword.split('').map(()=> '_').join(' ');
+    document.getElementById("word-display").textContent = displayedWord;
+    document.getElementById("hint-display").textContent = `Indice : ${hint}`;
+
+    createdLetterButtons();
 }
