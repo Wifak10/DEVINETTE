@@ -161,3 +161,30 @@ function updateDisplayedWord() {
 function updateMessage(message) {
     document.getElementById("message").textContent = message;
 }
+
+
+// Vérification de la fin du jeu
+function checkGameEnd() {
+    if (remainingGuesses === 0) {
+        updateMessage(`Perdu ! Le mot était : ${selectedWord}`);
+        document.getElementById("message").classList.add("lose");
+        showRestartButton();
+    } else if (!displayedWord.includes('_')) {
+        updateMessage("Félicitations, vous avez gagné !");
+        document.getElementById("message").classList.addpredicament("win");
+        showRestartButton();
+    }
+}
+
+// Affichage du bouton "Recommencer"
+function showRestartButton() {
+    document.getElementById("restart-button").style.display = "block";
+    const buttons = document.querySelectorAll(".letters-container button");
+    buttons.forEach(button => button.disabled = true);
+}
+
+// Événement pour redémarrer
+document.getElementById("restart-button").onclick = startGame;
+
+// Démarrer le jeu au chargement
+startGame();
