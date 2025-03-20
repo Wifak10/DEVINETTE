@@ -156,3 +156,8 @@ function updateDisplayedWord() {
     }).join(' ');
     document.getElementById("word-display").textContent = displayedWord;
 }
+
+//Mise à jour du message
+function updateMessage(message) {
+    document.getElementById("message").textContent = message;
+}
