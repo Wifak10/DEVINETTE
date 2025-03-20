@@ -95,3 +95,15 @@ function getRandomWord() {
     const randomIndex = Math.floor(Math.random() * words.length) ;
     return words[randomIndex];
 }
+
+//Initialisation du jeu
+function startGame(){
+    remainingGuesses = 6 ;
+    guessedLetters = [];
+    document.getElementById("message").textContent = "";
+    document.getElementById("message").classList.remove("win","lose");
+    document.getElementById("restart-button").style.display = "none" ;
+    document.getElementById("remaining-guesses").textContent = remainingGuesses;
+
+    
+}
