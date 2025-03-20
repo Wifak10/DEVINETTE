@@ -149,3 +149,10 @@ function guessLetter(letter, button) {
 
     checkGameEnd();
 }
+// Mise à jour du mot affiché
+function updateDisplayedWord() {
+    displayedWord = selectedWord.split('').map(char => {
+        return guessedLetters.includes(char) ? char : '_';
+    }).join(' ');
+    document.getElementById("word-display").textContent = displayedWord;
+}
