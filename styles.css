@@ -19,38 +19,40 @@ body {
 
 /* Mode sombre avec nouvelles couleurs */
 body.dark-mode {
-    background: linear-gradient(135deg, #1a1a2e, #16213e); /* Bleu nuit profond */
+    background: linear-gradient(135deg, #0f3460, #16213e); /* Bleu nuit profond */
 }
 
 body.dark-mode .game-container {
-    background: #0f3460; /* Bleu sombre élégant */
-    color: #e94560; /* Rose-rouge pour contraste */
+    background: #132743; /* Bleu sombre élégant */
+    color: #f1c40f; /* Jaune doré pour contraste */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 body.dark-mode .word-display,
 body.dark-mode .guesses-left,
 body.dark-mode .message,
 body.dark-mode .score {
-    color: #e94560; /* Rose-rouge */
+    color: #f1c40f; /* Jaune doré */
 }
 
 body.dark-mode .hint-display {
-    color: #54e346; /* Vert fluo pour l’indice */
-    background: rgba(84, 227, 70, 0.1);
+    color: #7bed9f; /* Vert pastel pour l'indice */
+    background: rgba(123, 237, 159, 0.1);
 }
 
 body.dark-mode #theme-toggle {
-    background-color: #e94560; /* Rose-rouge */
-    color: #0f3460;
+    background-color: #f1c40f; /* Jaune doré */
+    color: #132743;
 }
 
 body.dark-mode .restart-button {
-    background-color: #54e346; /* Vert fluo */
-    box-shadow: 0 4px 10px rgba(84, 227, 70, 0.3);
+    background-color: #7bed9f; /* Vert pastel */
+    box-shadow: 0 4px 10px rgba(123, 237, 159, 0.3);
+    color: #132743;
 }
 
 body.dark-mode .restart-button:hover {
-    background-color: #4cd137;
+    background-color: #55efc4;
 }
 
 /* Conteneur principal pour le responsive */
@@ -82,7 +84,7 @@ body.dark-mode .restart-button:hover {
     transform: scale(1.05);
 }
 
-/* Conteneur du jeu avec animation d’introduction */
+/* Conteneur du jeu avec animation d'introduction */
 .game-container {
     background: #ffffff;
     border-radius: 20px;
@@ -104,7 +106,7 @@ h1 {
     letter-spacing: 1.5px;
 }
 
-/* Score avec animation en cas d’échec */
+/* Score avec animation en cas d'échec */
 .score {
     font-size: 1.2rem;
     color: #27ae60;
@@ -116,7 +118,7 @@ h1 {
 }
 
 .score.lose {
-    animation: pulse 1s infinite; /* Animation en cas d’échec */
+    animation: pulse 1s infinite; /* Animation en cas d'échec */
 }
 
 /* Affichage du mot */
@@ -239,6 +241,8 @@ h1 {
     display: none;
     transition: all 0.3s ease;
     box-shadow: 0 4px 10px rgba(230, 126, 34, 0.3);
+    display: flex;
+    justify-content: center;
 }
 
 .restart-button:hover {
